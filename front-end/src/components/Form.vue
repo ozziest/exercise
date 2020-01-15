@@ -2,42 +2,67 @@
   <div>
     <h4 ref="form-title">Create new author</h4>
     <div class="form-container">
-      <form>
-        <h4 class="group-title">Author</h4>
-        <div class="form-group">
-          <label for="author-name">Name</label>
-          <input type="text" id="author-name" v-model="form.author.name" />
-        </div>
-        <div class="form-group">
-          <label for="author-age">Age</label>
-          <input type="text" id="author-age" v-model="form.author.age" maxlength="3" />
-        </div>
-        <div class="form-group">
-          <label for="address">Address</label>
-          <textarea rows="3" id="author-address" v-model="form.author.address"></textarea>
-        </div>
+      <ValidationObserver ref="formValidationObserver">
+        <form>
+          <h4 class="group-title">Author</h4>
+          <ValidationProvider rules="required|max:50" name="Author Name" v-slot="{ errors }" ref="authorNameProvider">
+            <div class="form-group">
+              <label for="author-name">Name</label>
+              <input type="text" id="author-name" v-model="form.author.name" />
+              <div class="error-text">{{ errors[0] }}</div>
+            </div>
+          </ValidationProvider>
+          <ValidationProvider rules="required" name="Author Age" v-slot="{ errors }" ref="authorAgeProvider">
+            <div class="form-group">
+              <label for="author-age">Age</label>
+              <input type="text" id="author-age" v-model="form.author.age" maxlength="3" />
+              <div class="error-text">{{ errors[0] }}</div>
+            </div>
+          </ValidationProvider>
+          <ValidationProvider rules="required" name="Author Address" v-slot="{ errors }" ref="authorAddressProvider">
+            <div class="form-group">
+              <label for="address">Address</label>
+              <textarea rows="3" id="author-address" v-model="form.author.address"></textarea>
+              <div class="error-text">{{ errors[0] }}</div>
+            </div>
+          </ValidationProvider>
 
-        <h4 class="group-title">Book</h4>
-        <div class="form-group">
-          <label for="book-name">Name</label>
-          <input type="text" id="book-name" v-model="form.book.name" />
-        </div>
-        <div class="form-group">
-          <label for="book-release-date">Release Date</label>
-          <input type="date" id="book-release-date" v-model="form.book.release_date" />
-        </div>
+          <h4 class="group-title">Book</h4>
+          <ValidationProvider rules="required|max:50" name="Book Name" v-slot="{ errors }" ref="bookNameProvider">
+            <div class="form-group">
+              <label for="book-name">Name</label>
+              <input type="text" id="book-name" v-model="form.book.name" />
+              <div class="error-text">{{ errors[0] }}</div>
+            </div>
+          </ValidationProvider>
+          <div class="form-group">
+            <label for="book-release-date">Release Date</label>
+            <input type="date" id="book-release-date" v-model="form.book.release_date" />
+          </div>
 
-        <button>
-          Save!
-        </button>
-      </form>
+          <button>
+            Save!
+          </button>
+        </form>
+      </ValidationObserver>
     </div>
   </div>
 </template>
 
 <script>
+import { ValidationObserver, ValidationProvider, extend } from 'vee-validate'
+import { required, max } from 'vee-validate/dist/rules'
+
+extend('required', required)
+extend('max', max)
+
 export default {
   name: 'Form',
+
+  components: {
+    ValidationObserver,
+    ValidationProvider
+  },
 
   data () {
     return {
@@ -92,5 +117,10 @@ button {
   border: 1px solid #fe0000;
   padding: 5px 10px;
   font-weight: bold;
+}
+
+div.error-text {
+  font-size: 12px;
+  color: #fe0000;
 }
 </style>
