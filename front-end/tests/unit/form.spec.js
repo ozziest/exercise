@@ -27,24 +27,16 @@ describe('Form.vue', () => {
   })
 
   it('form should be able to filled', () => {
-    wrapper.find('#author-name').element.value = 'Karl R. Popper'
-    wrapper.find('#author-name').trigger('input')
+    wrapper.find('#author-name').setValue('Karl R. Popper')
+    wrapper.find('#author-age').setValue(92)
+    wrapper.find('#author-address').setValue('Karl-Popper-Straße, Vienna, Austria')
+    wrapper.find('#book-name').setValue('The Logic Of Scientific Discovery')
+    wrapper.find('#book-release-date').setValue('1959-07-28')
+
     expect(wrapper.vm.form.author.name).toBe('Karl R. Popper')
-
-    wrapper.find('#author-age').element.value = 92
-    wrapper.find('#author-age').trigger('input')
     expect(wrapper.vm.form.author.age).toBe('92')
-
-    wrapper.find('#author-address').element.value = 'Karl-Popper-Straße, Vienna, Austria'
-    wrapper.find('#author-address').trigger('input')
     expect(wrapper.vm.form.author.address).toBe('Karl-Popper-Straße, Vienna, Austria')
-
-    wrapper.find('#book-name').element.value = 'The Logic Of Scientific Discovery'
-    wrapper.find('#book-name').trigger('input')
     expect(wrapper.vm.form.book.name).toBe('The Logic Of Scientific Discovery')
-
-    wrapper.find('#book-release-date').element.value = '1959-07-28'
-    wrapper.find('#book-release-date').trigger('input')
     expect(wrapper.vm.form.book.release_date).toBe('1959-07-28')
   })
 })

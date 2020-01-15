@@ -28,12 +28,14 @@ describe('App.vue', () => {
     expect(wrapper.vm.currentAction).toMatch('Form')
   })
 
-  it('active component should be loaded correctly', () => {
+  it('active component should be loaded correctly', async () => {
     wrapper.find({ ref: 'data-link' }).trigger('click')
+    await wrapper.vm.$nextTick()
     expect(wrapper.vm.activeComponent).toBe(Data)
     expect(wrapper.contains('data-stub')).toBe(true)
     
     wrapper.find({ ref: 'form-link' }).trigger('click')
+    await wrapper.vm.$nextTick()
     expect(wrapper.vm.activeComponent).toBe(Form)
     expect(wrapper.contains('form-stub')).toBe(true)
   })
