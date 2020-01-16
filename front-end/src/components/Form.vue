@@ -110,6 +110,7 @@ textarea {
   border: 1px solid #ddd;
   border-radius: 3px;
   font-size: 12px;
+  width: 100%;
 }
 
 button {

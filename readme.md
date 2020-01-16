@@ -10,7 +10,12 @@ To-do...
 
 ##### API
 
-To-do...
+In order to execute VueJS application, you should use following commands;
+
+```bash
+$ composer install
+$ php artisan serve
+```
 
 ##### VueJS Application
 
@@ -24,7 +29,14 @@ $ yarn serve
 
 ### Tests
 
-In order to test front-end application, you may use following commands;
+In order to execute back-end tests, you may use following commands;
+
+```bash
+$ composer install
+$ phpunit
+```
+
+In order to execute front-end tests, you may use following commands;
 
 ```bash
 $ cd front-end
