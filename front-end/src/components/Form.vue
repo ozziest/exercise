@@ -53,6 +53,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'Form',
 
@@ -68,7 +70,8 @@ export default {
           name: null,
           release_date: null
         }
-      }
+      },
+      result: null
     }
   },
 
@@ -77,7 +80,10 @@ export default {
       if (await this.$refs.formValidationObserver.validate() === false) {
         return
       }
-      console.log('ok')
+
+      const { data } = await axios.post('api/authors', this.form)
+      this.result = data
+      this.$emit('added')
     }
   }
 }

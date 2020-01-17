@@ -13,5 +13,5 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('authors', 'AuthorController@index');
-Route::post('authors', 'AuthorController@store');
+Route::get('/authors', 'AuthorController@index');
+Route::post('/authors', 'AuthorController@store');

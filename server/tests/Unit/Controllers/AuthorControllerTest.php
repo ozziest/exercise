@@ -41,6 +41,11 @@ class AuthorControllerTest extends TestCase
             ->with($authorData)
             ->andReturn($author);
 
+        $authorRepository
+            ->shouldReceive('find')
+            ->with(1)
+            ->andReturn($author);
+
         $bookRepository = Mockery::mock('App\Repositories\BookRepository');
         $bookRepository
             ->shouldReceive('create')
@@ -59,9 +64,15 @@ class AuthorControllerTest extends TestCase
             ->with('book')
             ->andReturn($bookData);
 
+        $response = Mockery::mock('Symfony\Component\HttpFoundation\Response');
+        $request
+            ->shouldReceive('json')
+            ->andReturn('my-response-result');
+
         // // Calling the controller
         $controller = new AuthorController($authorRepository, $bookRepository);
-        $controller->store($request);
+        $result = $controller->store($request, $response);
         $this->assertTrue(true);
+        $this->assertEquals($result->id, $author->id);
     }
 }

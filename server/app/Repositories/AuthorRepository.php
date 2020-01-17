@@ -26,4 +26,19 @@ class AuthorRepository
     {
         return $this->model->create($data);
     }
+
+    /**
+     * Finding the author with full related data
+     * 
+     * @param int $id
+     * @return Author
+     */
+    public function find($id) : Author
+    {
+        return $this
+            ->model
+            ->where('id', $id)
+            ->with('books')
+            ->first();
+    }
 }

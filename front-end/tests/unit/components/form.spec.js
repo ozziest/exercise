@@ -3,8 +3,19 @@ import flushPromises from 'flush-promises'
 import Form from '@/components/Form.vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import '@/initialize.js'
+import axios from "axios"
+import MockAdapter from "axios-mock-adapter"
+const mock = new MockAdapter(axios)
 
 describe('Form.vue', () => {
+
+  afterAll(() => {
+    mock.restore()
+  })
+
+  beforeEach(() => {
+    mock.reset()
+  })
 
   const wrapper = mount(Form, { sync: false })
 
@@ -128,5 +139,29 @@ describe('Form.vue', () => {
     expect(wrapper.text().includes('Author Age is not valid.')).toBeFalsy()
     expect(wrapper.text().includes('Author Address is not valid.')).toBeFalsy()
     expect(wrapper.text().includes('Book Name is not valid.')).toBeFalsy()
+
+    // This is mock object of api response
+    const apiResponse = {
+      id: 1,
+      name: 'Karl Popper',
+      age: 92,
+      address: 'Vienna',
+      books: [
+        {
+          id: 1,
+          author_id: 1,
+          name: 'The Logic Of Scientific Discovery',
+          release_date: '1959-07-28'  
+        }
+      ]
+    }
+    // We are mocking axios request's response
+    mock.onPost("/api/authors").reply(200, apiResponse)
+    // Trying to submit form
+    wrapper.find('form').trigger('submit')
+    await flushPromises()
+    // Checking our expectations
+    expect(wrapper.vm.result).toEqual(apiResponse)
+    expect(wrapper.emitted().added).toBeTruthy()
   })
 })

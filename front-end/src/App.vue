@@ -8,7 +8,7 @@
       </div>
     </h1>
     <div>
-      <component :is="activeComponent"></component>
+      <component :is="activeComponent" @added="onAdded"></component>
     </div>
   </div>
 </template>
@@ -38,6 +38,10 @@ export default {
   methods: {
     setAction (value) {
       this.currentAction = value
+    },
+
+    onAdded () {
+      this.currentAction = 'Data'
     }
   }
 }

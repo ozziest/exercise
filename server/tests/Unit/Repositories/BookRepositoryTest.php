@@ -12,7 +12,7 @@ class BookRepositoryTest extends TestCase
 {
 
     /**
-     * A basic test example.
+     * Create method test
      *
      * @return void
      */

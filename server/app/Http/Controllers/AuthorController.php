@@ -38,5 +38,6 @@ class AuthorController extends Controller
     {
         $author = $this->authorRepository->create($request->input('author'));
         $this->bookRepository->create($author, $request->input('book'));
+        return $this->authorRepository->find($author->id);
     }
 }

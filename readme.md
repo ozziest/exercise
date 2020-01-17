@@ -4,7 +4,7 @@ This is simple exercise on Laravel and VueJS.
 
 ### Requirements
 
-To-do...
+- `phpunit ^7.5.20`
 
 ### Installation
 
