@@ -10,6 +10,7 @@
     <div>
       <component :is="activeComponent" @added="onAdded"></component>
     </div>
+    <notifications position="bottom right"/>
   </div>
 </template>
 

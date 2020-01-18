@@ -83,9 +83,24 @@ export default {
         return
       }
 
-      const { data } = await axios.post('api/authors', this.form)
-      this.result = data
-      this.$emit('added')
+      this.result = null
+
+      try {
+        const { data } = await axios.post('api/authors', this.form)
+        this.result = data
+        this.$emit('added')
+        this.$notify('notify', {
+          type: 'success',
+          title: 'Successful',
+          text: 'The author and the book has been saved.'
+        })
+      } catch (error) {
+        this.$notify({
+          type: 'error',
+          title: 'An error occurred',
+          text: error.response.data.message
+        })
+      }
     }
   }
 }

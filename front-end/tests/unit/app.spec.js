@@ -2,6 +2,7 @@ import { shallowMount } from '@vue/test-utils'
 import App from '@/App.vue'
 import Form from '@/components/Form.vue'
 import Data from '@/components/Data.vue'
+import '@/initialize.js'
 
 describe('App.vue', () => {
   const wrapper = shallowMount(App)
@@ -9,6 +10,10 @@ describe('App.vue', () => {
   it('should be able to rendered with basic options', () => {
     expect(wrapper.isVueInstance()).toBeTruthy()
     expect(wrapper.vm.currentAction).toMatch('Form')
+  })
+
+  it('should have notification component', () => {
+    expect(wrapper.html()).toContain('notifications-stub')
   })
 
   it('should have the title', () => {

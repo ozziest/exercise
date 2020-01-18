@@ -1,5 +1,6 @@
 import { mount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
+import sinon from 'sinon'
 import Form from '@/components/Form.vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import '@/initialize.js'
@@ -17,7 +18,13 @@ describe('Form.vue', () => {
     mock.reset()
   })
 
-  const wrapper = mount(Form, { sync: false })
+  const $notify = sinon.fake()
+  const wrapper = mount(Form, {
+    sync: false,
+    mocks: {
+      $notify: $notify
+    }
+  })
 
   it('should be able to rendered with basic options', () => {
     expect(wrapper.isVueInstance()).toBeTruthy()
@@ -163,5 +170,18 @@ describe('Form.vue', () => {
     // Checking our expectations
     expect(wrapper.vm.result).toEqual(apiResponse)
     expect(wrapper.emitted().added).toBeTruthy()
+    expect($notify.callCount).toBe(1)
   })
+
+  it('an error notification should be throwned', async () => {
+    // We are mocking axios request's response
+    mock.onPost("/api/authors").reply(422, {
+      message: 'The given data was invalid.'
+    })
+    // Trying to submit form
+    wrapper.find('form').trigger('submit')
+    await flushPromises()
+    expect(wrapper.vm.result).toEqual(null)
+    expect($notify.callCount).toBe(2)
+  })  
 })
