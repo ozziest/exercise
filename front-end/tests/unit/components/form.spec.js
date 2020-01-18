@@ -50,7 +50,7 @@ describe('Form.vue', () => {
   it('when form submit, execute form validations', async () => {
     wrapper.find('form').trigger('submit')
     await flushPromises()
-    expect(wrapper.text().includes('Author Name is not valid.')).toBeTruthy()
+    expect(wrapper.text().includes('The Author Name field is required')).toBeTruthy()
   })
 
   it('form required validations should work correctly', async () => {
@@ -61,37 +61,37 @@ describe('Form.vue', () => {
 
     await flushPromises()
 
-    expect(wrapper.vm.$refs.authorNameProvider.errors[0]).toBe('Author Name is not valid.')
-    expect(wrapper.vm.$refs.authorAgeProvider.errors[0]).toBe('Author Age is not valid.')
-    expect(wrapper.vm.$refs.authorAddressProvider.errors[0]).toBe('Author Address is not valid.')
-    expect(wrapper.vm.$refs.bookNameProvider.errors[0]).toBe('Book Name is not valid.')
+    expect(wrapper.vm.$refs.authorNameProvider.errors[0]).toBe('The Author Name field is required')
+    expect(wrapper.vm.$refs.authorAgeProvider.errors[0]).toBe('The Author Age field is required')
+    expect(wrapper.vm.$refs.authorAddressProvider.errors[0]).toBe('The Author Address field is required')
+    expect(wrapper.vm.$refs.bookNameProvider.errors[0]).toBe('The Book Name field is required')
 
-    expect(wrapper.text().includes('Author Name is not valid.')).toBeTruthy()
-    expect(wrapper.text().includes('Author Age is not valid.')).toBeTruthy()
-    expect(wrapper.text().includes('Author Address is not valid.')).toBeTruthy()
-    expect(wrapper.text().includes('Book Name is not valid.')).toBeTruthy()
+    expect(wrapper.text().includes('The Author Name field is required')).toBeTruthy()
+    expect(wrapper.text().includes('The Author Age field is required')).toBeTruthy()
+    expect(wrapper.text().includes('The Author Address field is required')).toBeTruthy()
+    expect(wrapper.text().includes('The Book Name field is required')).toBeTruthy()
   })
 
   it('author`s age range validation', async () => {
     wrapper.find('#author-age').setValue('200')
     await flushPromises()
     expect(wrapper.vm.form.author.age).toBe('200')
-    expect(wrapper.vm.$refs.authorAgeProvider.errors[0]).toBe('Author Age is not valid.')
-    expect(wrapper.text().includes('Author Age is not valid.')).toBeTruthy()
+    expect(wrapper.vm.$refs.authorAgeProvider.errors[0]).toBe('The Author Age field must be 120 or less')
+    expect(wrapper.text().includes('The Author Age field must be 120 or less')).toBeTruthy()
 
     wrapper.find('#author-age').setValue('-10')
     await flushPromises()
     expect(wrapper.vm.form.author.age).toBe('-10')
-    expect(wrapper.vm.$refs.authorAgeProvider.errors[0]).toBe('Author Age is not valid.')
-    expect(wrapper.text().includes('Author Age is not valid.')).toBeTruthy()
+    expect(wrapper.vm.$refs.authorAgeProvider.errors[0]).toBe('The Author Age field must be 0 or more')
+    expect(wrapper.text().includes('The Author Age field must be 0 or more')).toBeTruthy()
   })
 
   it('author`s name max length validation', async () => {
     wrapper.find('#author-name').setValue('This is a name which is too long for the field but we should try.')
     await flushPromises()
     expect(wrapper.vm.form.author.name).toBe('This is a name which is too long for the field but we should try.')
-    expect(wrapper.vm.$refs.authorNameProvider.errors[0]).toBe('Author Name is not valid.')
-    expect(wrapper.text().includes('Author Name is not valid.')).toBeTruthy()
+    expect(wrapper.vm.$refs.authorNameProvider.errors[0]).toBe('The Author Name field may not be greater than 50 characters')
+    expect(wrapper.text().includes('The Author Name field may not be greater than 50 characters')).toBeTruthy()
   })
 
   it('author`s address max length validation', async () => {
@@ -104,16 +104,16 @@ describe('Form.vue', () => {
     wrapper.find('#author-address').setValue(longAddress)
     await flushPromises()
     expect(wrapper.vm.form.author.address).toBe(longAddress)
-    expect(wrapper.vm.$refs.authorAddressProvider.errors[0]).toBe('Author Address is not valid.')
-    expect(wrapper.text().includes('Author Address is not valid.')).toBeTruthy()
+    expect(wrapper.vm.$refs.authorAddressProvider.errors[0]).toBe('The Author Address field may not be greater than 255 characters')
+    expect(wrapper.text().includes('The Author Address field may not be greater than 255 characters')).toBeTruthy()
   })
 
   it('book`s name max length validation', async () => {
     wrapper.find('#book-name').setValue('This is a name which is too long for the field but we should try.')
     await flushPromises()
     expect(wrapper.vm.form.book.name).toBe('This is a name which is too long for the field but we should try.')
-    expect(wrapper.vm.$refs.bookNameProvider.errors[0]).toBe('Book Name is not valid.')
-    expect(wrapper.text().includes('Book Name is not valid.')).toBeTruthy()
+    expect(wrapper.vm.$refs.bookNameProvider.errors[0]).toBe('The Book Name field may not be greater than 50 characters')
+    expect(wrapper.text().includes('The Book Name field may not be greater than 50 characters')).toBeTruthy()
   })
 
   it('form should be able to filled', async () => {
@@ -136,9 +136,9 @@ describe('Form.vue', () => {
 
     // Checking form validation errors. They shouldn't be showned because all data is correct.
     expect(wrapper.text().includes('Author Name is not valid.')).toBeFalsy()
-    expect(wrapper.text().includes('Author Age is not valid.')).toBeFalsy()
-    expect(wrapper.text().includes('Author Address is not valid.')).toBeFalsy()
-    expect(wrapper.text().includes('Book Name is not valid.')).toBeFalsy()
+    expect(wrapper.text().includes('The Author Age field is required')).toBeFalsy()
+    expect(wrapper.text().includes('The Author Address field may not be greater than 255 characters')).toBeFalsy()
+    expect(wrapper.text().includes('The Book Name field may not be greater than 50 characters')).toBeFalsy()
 
     // This is mock object of api response
     const apiResponse = {
