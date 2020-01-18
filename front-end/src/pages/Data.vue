@@ -8,8 +8,8 @@
         <thead>
           <tr>
             <th width="1%">#</th>
-            <th>Author</th>
-            <th>Age</th>
+            <th><OrderTitle @change="onChangeOrderType" :params="params" title="Author" field="name"></OrderTitle></th>
+            <th><OrderTitle @change="onChangeOrderType" :params="params" title="Age" field="age"></OrderTitle></th>
             <th>Address</th>
             <th></th>
           </tr>
@@ -47,24 +47,31 @@
           </template>
         </tbody>
       </table>
-      <Paginator :source="result" @change="fetch"></Paginator>
+      <Paginator :source="result" @change="onChangePage"></Paginator>
     </div>
   </div>
 </template>
 
 <script>
 import Paginator from '@/components/Paginator'
+import OrderTitle from '@/components/OrderTitle'
 import axios from 'axios'
 
 export default {
   name: 'Data',
 
   components: {
-    Paginator
+    Paginator,
+    OrderTitle
   },
 
   data () {
     return {
+      params: {
+        page: 1,
+        order_by: 'id',
+        order_type: 'ASC'
+      },
       result: null
     }
   },
@@ -74,14 +81,23 @@ export default {
   },
 
   methods: {
-    async fetch (page) {
+    async fetch () {
       const { data } = await axios.get('api/authors', {
-        params: {
-          page
-        }
+        params: this.params
       })
       data.data.forEach(author => { author._is_detail_opened = false })
       this.result = data
+    },
+
+    onChangePage (page) {
+      this.params.page = page
+      this.fetch()
+    },
+
+    onChangeOrderType (orderBy, orderType) {
+      this.params.order_by = orderBy
+      this.params.order_type = orderType
+      this.fetch()
     },
 
     openDetail (author) {

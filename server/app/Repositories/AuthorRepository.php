@@ -46,13 +46,16 @@ class AuthorRepository
     /**
      * Fetching all authors with full related data
      * 
+     * @param string $orderBy
+     * @param string $orderType
      * @return LengthAwarePaginator
      */
-    public function paginate() : LengthAwarePaginator
+    public function paginate($orderBy, $orderType) : LengthAwarePaginator
     {
         return $this
             ->model
             ->with('books')
+            ->orderBy($orderBy, $orderType)
             ->paginate(10);
     }
 }

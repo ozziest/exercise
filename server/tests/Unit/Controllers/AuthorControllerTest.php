@@ -86,12 +86,22 @@ class AuthorControllerTest extends TestCase
         $authorRepository = Mockery::mock('App\Repositories\AuthorRepository');
         $authorRepository
             ->shouldReceive('paginate')
-            ->with()
+            ->with('name', 'DESC')
             ->andReturn($result);
 
         $bookRepository = Mockery::mock('App\Repositories\BookRepository');
 
+        $request = Mockery::mock('App\Http\Requests\PaginateAuthor');
+        $request
+            ->shouldReceive('input')
+            ->with('order_by', 'id')
+            ->andReturn('name');
+        $request
+            ->shouldReceive('input')
+            ->with('order_type', 'ASC')
+            ->andReturn('DESC');
+
         $controller = new AuthorController($authorRepository, $bookRepository);
-        $this->assertEquals($result, $controller->index());
+        $this->assertEquals($result, $controller->index($request));
     }    
 }

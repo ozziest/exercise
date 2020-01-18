@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAuthor;
+use App\Http\Requests\PaginateAuthor;
 use App\Repositories\AuthorRepository;
 use App\Repositories\BookRepository;
 
@@ -46,8 +47,11 @@ class AuthorController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(PaginateAuthor $request)
     {
-        return $this->authorRepository->paginate();
+        return $this->authorRepository->paginate(
+            $request->input('order_by', 'id'),
+            $request->input('order_type', 'ASC')
+        );
     }
 }
