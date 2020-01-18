@@ -33,4 +33,4 @@ $ yarn serve
 
 ### License
 
-To-do...
+[GNU GENERAL PUBLIC LICENSE](LICENSE)
