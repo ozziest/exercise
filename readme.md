@@ -5,6 +5,8 @@ This is simple exercise on Laravel and VueJS.
 ### Requirements
 
 - `phpunit ^7.5.20`
+- `laravel ^6.2`
+- `MySQL ^5.7`
 
 ### Installation
 
@@ -14,6 +16,7 @@ In order to execute VueJS application, you should use following commands;
 
 ```bash
 $ composer install
+$ phpunit
 $ php artisan serve
 ```
 
@@ -24,23 +27,8 @@ In order to execute VueJS application, you should use following commands;
 ```bash
 $ cd front-end
 $ yarn
-$ yarn serve
-```
-
-### Tests
-
-In order to execute back-end tests, you may use following commands;
-
-```bash
-$ composer install
-$ phpunit
-```
-
-In order to execute front-end tests, you may use following commands;
-
-```bash
-$ cd front-end
 $ yarn test:unit
+$ yarn serve
 ```
 
 ### License
