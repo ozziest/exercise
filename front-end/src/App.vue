@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import Form from '@/components/Form'
-import Data from '@/components/Data'
+import Form from '@/pages/Form'
+import Data from '@/pages/Data'
 
 export default {
   name: 'App',

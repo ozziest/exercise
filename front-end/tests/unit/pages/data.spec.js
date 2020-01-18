@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import axios from "axios"
 import MockAdapter from "axios-mock-adapter"
-import Data from '@/components/Data.vue'
+import Data from '@/pages/Data.vue'
 import Paginator from '@/components/Paginator'
 import apiIndexResponse from './../mocks/api/index'
 const mock = new MockAdapter(axios)

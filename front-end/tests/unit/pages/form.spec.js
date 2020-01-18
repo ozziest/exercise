@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
 import flushPromises from 'flush-promises'
 import sinon from 'sinon'
-import Form from '@/components/Form.vue'
+import Form from '@/pages/Form.vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import '@/initialize.js'
 import axios from "axios"

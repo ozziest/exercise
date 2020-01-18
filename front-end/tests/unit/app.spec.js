@@ -1,7 +1,7 @@
 import { shallowMount } from '@vue/test-utils'
 import App from '@/App.vue'
-import Form from '@/components/Form.vue'
-import Data from '@/components/Data.vue'
+import Form from '@/pages/Form.vue'
+import Data from '@/pages/Data.vue'
 import '@/initialize.js'
 
 describe('App.vue', () => {
