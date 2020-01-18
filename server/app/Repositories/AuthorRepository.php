@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Pagination\LengthAwarePaginator;
 use App\Author;
 
 class AuthorRepository
@@ -40,5 +41,18 @@ class AuthorRepository
             ->where('id', $id)
             ->with('books')
             ->first();
+    }
+
+    /**
+     * Fetching all authors with full related data
+     * 
+     * @return LengthAwarePaginator
+     */
+    public function paginate() : LengthAwarePaginator
+    {
+        return $this
+            ->model
+            ->with('books')
+            ->paginate(10);
     }
 }

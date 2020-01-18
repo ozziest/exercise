@@ -46,11 +46,6 @@ class AuthorRepositoryTest extends TestCase
         $result = new Author();
         $result->id = 1;
 
-        $data = [
-            'name' => 'Karl Popper',
-            'age' => 92,
-            'address' => 'Vienna'
-        ];
         $model = Mockery::mock('App\Author');
         $model
             ->shouldReceive('where->with->first')

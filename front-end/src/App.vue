@@ -48,18 +48,7 @@ export default {
 </script>
 
 <style>
-body {
-  min-width: 800px;
-}
-
-div.container {
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 1000px;
-}
-
 div.container > h1 {
-  padding-bottom: 6px;
   border-bottom: 1px solid #fe0000;
 }
 

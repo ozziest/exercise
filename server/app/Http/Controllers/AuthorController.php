@@ -29,7 +29,7 @@ class AuthorController extends Controller
     }
 
     /**
-     * Store a new user.
+     * Store a new author.
      *
      * @param  Request  $request
      * @return Response
@@ -39,5 +39,15 @@ class AuthorController extends Controller
         $author = $this->authorRepository->create($request->input('author'));
         $this->bookRepository->create($author, $request->input('book'));
         return $this->authorRepository->find($author->id);
+    }
+
+    /**
+     * Fetching all authors
+     *
+     * @return Response
+     */
+    public function index()
+    {
+        return $this->authorRepository->paginate();
     }
 }

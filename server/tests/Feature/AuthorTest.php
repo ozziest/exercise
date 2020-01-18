@@ -89,7 +89,7 @@ class AuthorTest extends TestCase
      *
      * @return void
      */
-    public function testStore()
+    public function testPagination()
     {
         $response = $this->postJson('/api/authors', [
             'author' => [
@@ -103,5 +103,42 @@ class AuthorTest extends TestCase
             ]
         ]);
         $response->assertStatus(200);
+        
+        // I should be able to see all author with their books with pagination.
+        $response = $this->getJson('/api/authors');
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'current_page',
+            'data' => [
+                [
+                    'id',
+                    'name',
+                    'age',
+                    'address',
+                    'created_at',
+                    'updated_at',
+                    'books' => [
+                        [
+                            'id',
+                            'author_id',
+                            'name',
+                            'release_date',
+                            'created_at',
+                            'updated_at'
+                        ]
+                    ]
+                ]
+            ],
+            'first_page_url',
+            'from',
+            'last_page',
+            'last_page_url',
+            'next_page_url',
+            'path',
+            'per_page',
+            'prev_page_url',
+            'to',
+            'total'
+        ]);        
     }
 }

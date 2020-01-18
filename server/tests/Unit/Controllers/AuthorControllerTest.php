@@ -12,7 +12,7 @@ class AuthorControllerTest extends TestCase
 {
 
     /**
-     * A basic test example.
+     * Store method test
      *
      * @return void
      */
@@ -72,7 +72,26 @@ class AuthorControllerTest extends TestCase
         // // Calling the controller
         $controller = new AuthorController($authorRepository, $bookRepository);
         $result = $controller->store($request, $response);
-        $this->assertTrue(true);
         $this->assertEquals($result->id, $author->id);
     }
+
+    /**
+     * Paginate method test
+     *
+     * @return void
+     */
+    public function testAll()
+    {
+        $result = Mockery::mock('Illuminate\Pagination\LengthAwarePaginator');
+        $authorRepository = Mockery::mock('App\Repositories\AuthorRepository');
+        $authorRepository
+            ->shouldReceive('paginate')
+            ->with()
+            ->andReturn($result);
+
+        $bookRepository = Mockery::mock('App\Repositories\BookRepository');
+
+        $controller = new AuthorController($authorRepository, $bookRepository);
+        $this->assertEquals($result, $controller->index());
+    }    
 }
