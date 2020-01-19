@@ -17,6 +17,8 @@ In order to execute VueJS application, you should use following commands;
 ```bash
 $ composer install
 $ phpunit
+$ php artisan migrate
+$ php artisan db:seed
 $ php artisan serve
 ```
 
