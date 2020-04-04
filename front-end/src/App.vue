@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1>
-      Sportradar Exercise
+      Exercise
       <div class="menu">
         <a @click="setAction('Form')" ref="form-link">Add</a>
         <a @click="setAction('Data')" ref="data-link">Show Data</a>

@@ -38,7 +38,7 @@ describe('App.vue', () => {
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.activeComponent).toBe(Data)
     expect(wrapper.contains(Data)).toBe(true)
-    
+
     wrapper.find({ ref: 'form-link' }).trigger('click')
     await wrapper.vm.$nextTick()
     expect(wrapper.vm.activeComponent).toBe(Form)

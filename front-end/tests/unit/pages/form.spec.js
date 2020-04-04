@@ -40,7 +40,7 @@ describe('Form.vue', () => {
   })
 
   it('should have basic elements', () => {
-    expect(wrapper.contains({ ref: 'form-title'})).toBe(true)
+    expect(wrapper.contains({ ref: 'form-title' })).toBe(true)
     expect(wrapper.contains('form')).toBe(true)
     expect(wrapper.contains('#author-name')).toBe(true)
     expect(wrapper.contains('#author-age')).toBe(true)
